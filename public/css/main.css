@@ -1,0 +1,38 @@
+#open-tha-door {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -100px;
+  margin-top: -20px;
+}
+
+#gandalf {
+  width: 100%;
+}
+
+.box-close{
+  color: #fff;
+  border: 1px solid #AEAEAE;
+  border-radius: 30px;
+  background: #605F61;
+  position: absolute;
+  font-size: 31px;
+  top: -10px;
+  right: -10px;
+  font-weight: bold;
+  display: inline-block;
+  line-height: 0px;
+  padding: 11px 3px;
+}
+
+.box-close:before {
+  content: '×';
+}
+
+.button-custom {
+  color: white;
+  border-radius: 4px;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+  background: rgb(223, 117, 20);
+  font-size: 125%;
+}

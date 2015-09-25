@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>YLD! Gatekeeper</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/favicons/favicon-32x32.png" sizes="32x32">
+    <link rel="icon" type="image/png" href="/favicons/favicon-194x194.png" sizes="194x194">
+    <link rel="icon" type="image/png" href="/favicons/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/favicons/android-chrome-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/favicons/favicon-16x16.png" sizes="16x16">
+    <link rel="manifest" href="/favicons/manifest.json">
+    <meta name="apple-mobile-web-app-title" content="YLD! Gatekeeper">
+    <meta name="application-name" content="YLD! Gatekeeper">
+    <meta name="msapplication-TileColor" content="#d2c5f5">
+    <meta name="msapplication-TileImage" content="/favicons/mstile-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" type="text/css" href="/css/pure.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/dialog-polyfill.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+  </head>
+  <body>
+    <img src="/img/gandalf.png" id="gandalf"/>
+    <form id="open-tha-door">
+      <button type="submit" class="pure-button button-custom">OPEN THA DOOR!</button>
+    </form>
+
+    <dialog id="dialog-success">
+      YOU MAY PASS :)
+      <a class="box-close" onclick="window.dialogSuccess.close()"></a>
+    </dialog>
+    <dialog id="dialog-fail">
+      RASPBERRY IS DOWN!
+      <a class="box-close" onclick="window.dialogFail.close()"></a>
+    </dialog>
+    <dialog id="dialog-wait">
+      <div id="spinner"></div>
+    </dialog>
+
+    <script type="text/javascript" src="/js/dialog-polyfill.min.js"></script>
+    <script type="text/javascript" src="/js/spin.min.js"></script>
+    <script type="text/javascript" src="/js/door-ajax.js"></script>
+    <script type="text/javascript">
+      var spinnerDiv = document.getElementById('spinner')
+      var spinner = new Spinner().spin(spinnerDiv)
+
+      var dialogSuccess = document.getElementById('dialog-success')
+      var dialogFail = document.getElementById('dialog-fail')
+      var dialogWait = document.getElementById('dialog-wait')
+
+      // Register modals
+      dialogPolyfill.registerDialog(dialogSuccess)
+      dialogPolyfill.registerDialog(dialogFail)
+      dialogPolyfill.registerDialog(dialogWait)
+
+      // Attach event listener to the form
+      document.getElementById('open-tha-door').addEventListener('submit', function (e) {
+        e.preventDefault()
+
+        var door = new DoorAjax()
+        dialogWait.showModal()
+        door.open(function (status) {
+          dialogWait.close()
+
+          if (status !== 200) {
+            return dialogFail.showModal()
+          }
+
+          dialogSuccess.showModal()
+        })
+      })
+    </script>
+  </body>
+</html>
