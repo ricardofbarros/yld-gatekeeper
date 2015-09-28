@@ -12,7 +12,7 @@ app.use(express.static(__dirname + '/public'))
 // parse application/json
 app.use(bodyParser.json())
 
-app.post('/', function (req, res) {
+function openDoor (req, res) {
   door.open(function (err) {
     if (err) {
       return res.status(503).send('KEYMASTER DOWN')
@@ -20,7 +20,10 @@ app.post('/', function (req, res) {
 
     return res.sendStatus(200)
   })
-})
+}
+
+app.post('/', openDoor)
+app.get('/open-door', openDoor)
 
 app.use(function (req, res) {
   res.redirect('/')
