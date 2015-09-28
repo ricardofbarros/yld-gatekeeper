@@ -7,7 +7,7 @@ var config = require('./config')
 var app = express()
 var door = new DoorRemoteControl()
 
-app.use(express.static('public'))
+app.use(express.static(__dirname + '/public'))
 
 // parse application/json
 app.use(bodyParser.json())
