@@ -4,7 +4,7 @@
   "description": "You shall not pass! or (if you're lucky) you shall pass!",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node app.js"
   },
   "repository": {
     "type": "git",
