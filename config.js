@@ -1,14 +1,13 @@
 var config = {}
 
-config.passphrase = process.env.GK_PASSPHRASE
 config.secureKey = process.env.GK_SECURE_KEY
 
 config.http = {
-  port: process.env.GK_HTTP_PORT
+  port: process.env.GK_HTTP_PORT || 8080
 }
 
 config.tcp = {
-  prot: process.env.GK_TCP_PORT
+  port: process.env.GK_TCP_PORT || 8090
 }
 
 module.exports = config
